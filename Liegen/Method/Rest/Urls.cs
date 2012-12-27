@@ -19,7 +19,7 @@ namespace Meton.Liegen.Method.Rest
 
             return info
                 .GetClient(HttpMethod.Get)
-                .SetEndpoint(Endpoints.BaseUriUrlsV1 + Endpoints.UrlsShorten)
+                .SetEndpoint(Endpoints.UrlsShorten)
                 .SetParameters(param)
                 .GetResponse()
                 .Parse<Url>();
@@ -36,7 +36,7 @@ namespace Meton.Liegen.Method.Rest
 
             return info
                 .GetClient(HttpMethod.Get)
-                .SetEndpoint(Endpoints.BaseUriUrlsV1 + Endpoints.UrlsCount)
+                .SetEndpoint(Endpoints.UrlsCount)
                 .SetParameters(param)
                 .GetResponse()
                 .Parse<UrlCount>();

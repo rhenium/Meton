@@ -33,7 +33,7 @@ namespace Meton.Liegen.Method.Rest
 
             return info
                 .GetClient(HttpMethod.Post)
-                .SetEndpoint(Endpoints.BaseUriApiV1 + Endpoints.AccountGenerate)
+                .SetEndpoint(Endpoints.AccountGenerate)
                 .SetParameters(param)
                 .GetResponse()
                 .SelectMany(res =>

@@ -20,7 +20,7 @@ namespace Meton.Liegen.Method.Rest
 
             return info
                 .GetClient(HttpMethod.Get)
-                .SetEndpoint(Endpoints.BaseUriApiI + "statuses/" + id.ToString() + "/activity/summary.json")
+                .SetEndpoint(Endpoints.ActivityStatusSummary.Replace(":id", id.ToString()))
                 .SetParameters(param)
                 .GetResponse()
                 .Parse<StatusActivitySummary>()

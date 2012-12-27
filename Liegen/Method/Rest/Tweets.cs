@@ -32,7 +32,7 @@ namespace Meton.Liegen.Method.Rest
 
             return info
                 .GetClient(HttpMethod.Post)
-                .SetEndpoint(Endpoints.BaseUriApiV11 + Endpoints.StatusesUpdate)
+                .SetEndpoint(Endpoints.StatusesUpdate)
                 .SetParameters(param)
                 .GetResponse()
                 .Parse<Status>()
@@ -68,7 +68,7 @@ namespace Meton.Liegen.Method.Rest
 
             return info
                 .GetClient(HttpMethod.Post, ContentType.MultipartFormData)
-                .SetEndpoint(Endpoints.BaseUriApiV11 + Endpoints.StatusesUpdateWithMedia)
+                .SetEndpoint(Endpoints.StatusesUpdateWithMedia)
                 .SetParameters(param)
                 .GetResponse()
                 .Parse<Status>()

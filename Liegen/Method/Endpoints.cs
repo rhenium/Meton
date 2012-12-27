@@ -30,6 +30,10 @@
         // application/
         public static string ApplicationRateLimitStatus = Endpoints.BaseUriApiV11 + "application/rate_limit_status.json";
 
+        // activity
+        public static string ActivityStatusSummary = Endpoints.BaseUriApiI + "statuses/:id/activity/summary.json";
+
+
         // *
         public static string AccountGenerate = Endpoints.BaseUriApiV1 + "account/generate.json";
 

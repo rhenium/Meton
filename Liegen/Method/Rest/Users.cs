@@ -37,7 +37,7 @@ namespace Meton.Liegen.Method.Rest
 
             return info
                 .GetClient(HttpMethod.Get)
-                .SetEndpoint(Endpoints.BaseUriApiV11 + Endpoints.UsersShow)
+                .SetEndpoint(Endpoints.UsersShow)
                 .SetParameters(param)
                 .GetResponse()
                 .ReadApiLimits(info, Endpoints.UsersShow)
@@ -74,13 +74,15 @@ namespace Meton.Liegen.Method.Rest
             if (userId == null)
             {
                 param.Add("screen_name", screenName);
-            }else{
+            }
+            else
+            {
                 param.Add("user_id", string.Join(",", userId));
             }
 
             return info
                 .GetClient(HttpMethod.Get)
-                .SetEndpoint(Endpoints.BaseUriApiV11 + Endpoints.UsersLookup)
+                .SetEndpoint(Endpoints.UsersLookup)
                 .SetParameters(param)
                 .GetResponse()
                 .ReadApiLimits(info, Endpoints.UsersLookup)

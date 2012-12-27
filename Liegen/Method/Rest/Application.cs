@@ -20,7 +20,7 @@ namespace Meton.Liegen.Method.Rest
 
             return info
                 .GetClient(HttpMethod.Get)
-                .SetEndpoint(Endpoints.BaseUriApiV11 + Endpoints.ApplicationRateLimitStatus)
+                .SetEndpoint(Endpoints.ApplicationRateLimitStatus)
                 .SetParameters(param)
                 .GetResponse()
                 .SelectMany(p => p.Content.ReadAsStringAsync().ToObservable());
