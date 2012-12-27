@@ -1,0 +1,47 @@
+﻿<Window x:Class="Meton.Views.StatusBlock"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
+        xmlns:v="clr-namespace:Meton.Views"
+        xmlns:vm="clr-namespace:Meton.ViewModels"
+        Title="StatusBlock"
+        Width="525"
+        Height="350">
+
+    <Window.DataContext>
+        <vm:StatusBlockViewModel />
+    </Window.DataContext>
+
+    <i:Interaction.Triggers>
+
+        <!--  WindowのContentRenderedイベントのタイミングでViewModelのInitializeメソッドが呼ばれます  -->
+        <i:EventTrigger EventName="ContentRendered">
+            <l:LivetCallMethodAction MethodName="Initialize" MethodTarget="{Binding}" />
+        </i:EventTrigger>
+
+        <!--  Windowが閉じたタイミングでViewModelのDisposeメソッドが呼ばれます  -->
+        <i:EventTrigger EventName="Closed">
+            <l:DataContextDisposeAction />
+        </i:EventTrigger>
+
+        <!--  WindowのCloseキャンセル処理に対応する場合は、WindowCloseCancelBehaviorの使用を検討してください  -->
+
+    </i:Interaction.Triggers>
+
+    <Grid Height="22">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Width="22" />
+        <Grid Grid.Column="1">
+            <TextBlock>通知がここに入る予定</TextBlock>
+        </Grid>
+        <Grid Grid.Column="2" Width="22" />
+        <Grid Grid.Column="3" Width="22" />
+    </Grid>
+</Window>
