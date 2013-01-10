@@ -13,17 +13,17 @@ namespace Meton.Liegen.Method.Rest
             this AccountInfo info,
             long userId)
         {
-            return Users.UsersShowAPI(info, userId: userId);
+            return Users.UsersShowApi(info, userId: userId);
         }
 
         public static IObservable<User> UsersShow(
             this AccountInfo info,
             string screenName)
         {
-            return Users.UsersShowAPI(info, screenName: screenName);
+            return Users.UsersShowApi(info, screenName: screenName);
         }
 
-        private static IObservable<User> UsersShowAPI(
+        private static IObservable<User> UsersShowApi(
             AccountInfo info,
             long? userId = null,
             string screenName = null)
@@ -51,17 +51,17 @@ namespace Meton.Liegen.Method.Rest
             this AccountInfo info,
             params long[] userId)
         {
-            return Users.UsersLookupAPI(info, userId: userId);
+            return Users.UsersLookupApi(info, userId: userId);
         }
 
         public static IObservable<User> UsersLookup(
             this AccountInfo info,
             string screenName)
         {
-            return Users.UsersLookupAPI(info, screenName: screenName);
+            return Users.UsersLookupApi(info, screenName: screenName);
         }
 
-        private static IObservable<User> UsersLookupAPI(
+        private static IObservable<User> UsersLookupApi(
             AccountInfo info,
             long[] userId = null,
             string screenName = null)
@@ -88,6 +88,78 @@ namespace Meton.Liegen.Method.Rest
                 .ReadApiLimits(info, Endpoints.UsersLookup)
                 .ParseArray<User>()
                 .Select(user => user.Fix());
+        }
+        #endregion
+
+        #region BlocksCreate
+        public static IObservable<User> BlocksCreate(
+            this AccountInfo info,
+            long userId)
+        {
+            return Users.BlocksCreateApi(info, userId: userId);
+        }
+
+        public static IObservable<User> BlocksCreate(
+            this AccountInfo info,
+            string screenName)
+        {
+            return Users.BlocksCreateApi(info, screenName: screenName);
+        }
+
+        public static IObservable<User> BlocksCreateApi(
+            AccountInfo info,
+            long? userId = null,
+            string screenName = null)
+        {
+            var param = new ParameterCollection()
+            {
+                {"user_id", userId},
+                {"screen_name", screenName}
+            };
+
+            return info
+                .GetClient(HttpMethod.Post)
+                .SetEndpoint(Endpoints.BlocksCreate)
+                .SetParameters(param)
+                .GetResponse()
+                .Parse<User>()
+                .Select(_ => _.Fix());
+        }
+        #endregion
+
+        #region BlocksDestroy
+        public static IObservable<User> BlocksDestroy(
+            this AccountInfo info,
+            long userId)
+        {
+            return Users.BlocksDestroyApi(info, userId: userId);
+        }
+
+        public static IObservable<User> BlocksDestroy(
+            this AccountInfo info,
+            string screenName)
+        {
+            return Users.BlocksDestroyApi(info, screenName: screenName);
+        }
+
+        public static IObservable<User> BlocksDestroyApi(
+            AccountInfo info,
+            long? userId = null,
+            string screenName = null)
+        {
+            var param = new ParameterCollection()
+            {
+                {"user_id", userId},
+                {"screen_name", screenName}
+            };
+
+            return info
+                .GetClient(HttpMethod.Post)
+                .SetEndpoint(Endpoints.BlocksDestroy)
+                .SetParameters(param)
+                .GetResponse()
+                .Parse<User>()
+                .Select(_ => _.Fix());
         }
         #endregion
     }

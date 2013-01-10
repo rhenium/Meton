@@ -26,6 +26,12 @@
         // users/
         public static string UsersShow = Endpoints.BaseUriApiV11 + "users/show.json";
         public static string UsersLookup = Endpoints.BaseUriApiV11 + "users/lookup.json";
+        public static string BlocksCreate = Endpoints.BaseUriApiV11 + "blocks/create.json";
+        public static string BlocksDestroy = Endpoints.BaseUriApiV11 + "blocks/destroy.json";
+
+        // friendships/
+        public static string FollowersIds = Endpoints.BaseUriApiV11 + "followers/ids.json";
+        public static string FriendsIds = Endpoints.BaseUriApiV11 + "friends/ids.json";
 
         // application/
         public static string ApplicationRateLimitStatus = Endpoints.BaseUriApiV11 + "application/rate_limit_status.json";

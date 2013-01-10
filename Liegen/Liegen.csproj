@@ -90,8 +90,10 @@
   <ItemGroup>
     <Compile Include="DataModels\Account\Generate\Result.cs" />
     <Compile Include="DataModels\ApiResponseBase.cs" />
+    <Compile Include="DataModels\Ids.cs" />
     <Compile Include="DataModels\StatusActivitySummary.cs" />
     <Compile Include="DataModels\StatusBase.cs" />
+    <Compile Include="Method\Rest\Friendships.cs" />
     <Compile Include="Net\ContentType.cs" />
     <Compile Include="OAuth\AccessToken.cs" />
     <Compile Include="OAuth\OAuthMessageHandler.cs" />
