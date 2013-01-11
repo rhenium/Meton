@@ -41,6 +41,7 @@ namespace Meton.Liegen.OAuth
         {
             var addParam = new ParameterCollection();
             var requestMessage = new HttpRequestMessage(_Method, _Endpoint);
+            NetworkSettings.GetOptionRequestHeaders.Select(p => { requestMessage.Headers.Add(p.Key, p.Value); return p; });
 
             if (_Method == HttpMethod.Get)
             {
@@ -74,7 +75,11 @@ namespace Meton.Liegen.OAuth
                 }
             }
 
-            var client = new HttpClient(new OAuthMessageHandler(_AccessToken.Consumer, _AccessToken, addParam, new HttpClientHandler()));
+            var handler = new HttpClientHandler();
+            handler.UseProxy = NetworkSettings.Proxy != null;
+            handler.Proxy = NetworkSettings.Proxy;
+            var client = new HttpClient(new OAuthMessageHandler(_AccessToken.Consumer, _AccessToken, null, addParam, handler));
+            client.Timeout = NetworkSettings.Timeout;
             return client.SendAsync(requestMessage).ToObservable()
                 .Do(_ =>
                 {

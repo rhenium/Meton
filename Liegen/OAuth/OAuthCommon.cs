@@ -46,24 +46,24 @@ namespace Meton.Liegen.OAuth
 
             var hmacKeyBase = consumer.ConsumerSecret.UrlEncode() + "&" +
                 (token == null ? "" : token.Secret.UrlEncode());
-            
+
             var signature = new HMACSHA1(Encoding.UTF8.GetBytes(hmacKeyBase))
                 .Using(hmacsha1 => Convert.ToBase64String(hmacsha1.ComputeHash(Encoding.UTF8.GetBytes(signatureBase))).UrlEncode());
 
             parameters.Add(new Parameter("oauth_signature", signature));
 
-            return parameters;
+            return new ParameterCollection(
+                parameters
+                .OrderBy(p => p.Name)
+                .ThenBy(p => p.Value));
         }
 
         public static string BuildAuthorizationHeader(IEnumerable<Parameter> parameters)
         {
-            var index = 0;
             return parameters
-                .Where(p => p.Value != null)
-                .OrderBy(p => p.Name)
-                .ThenBy(p => p.Value)
+                .Where(p => p != null && p.Value != null)
                 .Select(p => p.Name + "=\"" + p.Value.ToString() + "\"")
-                .Aggregate(new StringBuilder(), (sb, o) => (index++ == 0) ? sb.Append(o) : sb.Append(", " + o))
+                .Aggregate(new StringBuilder(), (sb, o) => (sb.Length == 0) ? sb.Append(o) : sb.Append(", " + o))
                 .ToString();
         }
 
@@ -72,12 +72,18 @@ namespace Meton.Liegen.OAuth
             ParameterCollection parameters,
             Func<string, string, T> tokenFactory,
             Consumer consumer,
-            Token token = null)
+            Token token = null,
+            string realm = null)
             where T : Token
         {
-            var client = new HttpClient(new OAuthMessageHandler(consumer, token, Enumerable.Empty<Parameter>(),new HttpClientHandler()));
+            var handler = new HttpClientHandler();
+            handler.UseProxy = NetworkSettings.Proxy != null;
+            handler.Proxy = NetworkSettings.Proxy;
+            var client = new HttpClient(new OAuthMessageHandler(consumer, token, realm, parameters, handler));
+            client.Timeout = NetworkSettings.Timeout;
 
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, url);
+            NetworkSettings.GetOptionRequestHeaders.Select(p => { requestMessage.Headers.Add(p.Key, p.Value); return p; });
             requestMessage.Content = new FormUrlEncodedContent(parameters.Where(p => p.Value != null).Select(p => new KeyValuePair<string, string>(p.Name, p.Value.ToString())));
             return client.SendAsync(requestMessage).ToObservable()
                 .SelectMany(p => p.Content.ReadAsStringAsync().ToObservable())

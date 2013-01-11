@@ -9,6 +9,7 @@
         public static string BaseUriUrlsV1 = "http://urls.api.twitter.com/1/";
         public static string BaseUriApiV1 = "https://api.twitter.com/1/";
         public static string BaseUriApiI = "https://api.twitter.com/i/";
+        public static string BaseUriMobile = "https://mobile.twitter.com/mobile_client_api/";
 
         // OAuth
         public static string OAuthRequestTokenUrl = Endpoints.BaseUriOAuth + "request_token";
@@ -42,6 +43,7 @@
 
         // *
         public static string AccountGenerate = Endpoints.BaseUriApiV1 + "account/generate.json";
+        public static string OAuthSignupUrl = Endpoints.BaseUriMobile + "signup";
 
         public static string UrlsShorten = Endpoints.BaseUriUrlsV1 + "urls/shorten.json";
         public static string UrlsCount = Endpoints.BaseUriUrlsV1 + "urls/count.json";

@@ -42,7 +42,7 @@
     </DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -88,7 +88,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataModels\Account\Generate\Result.cs" />
     <Compile Include="DataModels\ApiResponseBase.cs" />
     <Compile Include="DataModels\Ids.cs" />
     <Compile Include="DataModels\StatusActivitySummary.cs" />
@@ -105,7 +104,7 @@
     <Compile Include="OAuth\Consumer.cs" />
     <Compile Include="DataModels\ErrorMessage.cs" />
     <Compile Include="DataModels\UrlCount.cs" />
-    <Compile Include="Net\NetworkSetting.cs" />
+    <Compile Include="Net\NetworkSettings.cs" />
     <Compile Include="OAuth\OAuthClient.cs" />
     <Compile Include="OAuth\OAuthCommon.cs" />
     <Compile Include="OAuth\XAuthAccessType.cs" />

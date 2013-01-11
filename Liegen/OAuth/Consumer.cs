@@ -21,6 +21,7 @@ namespace Meton.Liegen.OAuth
                 { "oauth_callback", oauthCallback },
                 { "x_auth_access_type", xauthAccessType.HasValue ? xauthAccessType.Value.ToStringExt() : null }
             };
+
             return OAuthCommon.GetTokenResponse(
                 Endpoints.OAuthRequestTokenUrl,
                 parameters,
@@ -37,11 +38,39 @@ namespace Meton.Liegen.OAuth
                 {"x_auth_password", password},
                 {"x_auth_mode", mode}
             };
+
             return OAuthCommon.GetTokenResponse(
                 Endpoints.OAuthAccessTokenUrl,
                 parameters,
                 (key, secret) => new AccessToken(this, key, secret),
                 this);
+        }
+
+        // Signup
+        public IObservable<AccessToken> Signup(
+            string screenName,
+            string email,
+            string password,
+            string fullname,
+            string lang,
+            Consumer newConsumer)
+        {
+            var parameters = new ParameterCollection
+            {
+                { "screen_name", screenName },
+                { "email", email },
+                { "password", password },
+                { "fullname", fullname },
+                { "lang", lang }
+            };
+
+            return OAuthCommon.GetTokenResponse(
+                Endpoints.OAuthSignupUrl,
+                parameters,
+                (key, secret) => new AccessToken(newConsumer, key, secret),
+                this,
+                null,
+                "http://api.twitter.com/");
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Meton.Liegen.DataModels;
-using Meton.Liegen.DataModels.Account.Generate;
 using Meton.Liegen.OAuth;
 using Meton.Liegen.Utility;
 using System;
@@ -13,13 +12,13 @@ namespace Meton.Liegen.Method.Rest
     {
         public static IObservable<Tuple<AccessToken, User>> AccountGenerate(
             this AccountInfo info,
+            Consumer newConsumer,
             string screenName,
             string email,
             string password,
             string name,
             string lang = null,
-            string timeZone = null,
-            Consumer newConsumer = null)
+            string timeZone = null)
         {
             var param = new ParameterCollection()
             {
@@ -38,11 +37,23 @@ namespace Meton.Liegen.Method.Rest
                 .GetResponse()
                 .SelectMany(res =>
                 {
-                    //string accessToken = res.Headers.GetValues("X-Twitter-New-Account-OAuth-Access-Token").FirstOrDefault();
-                    //string accessSecret = res.Headers.GetValues("X-Twitter-New-Account-OAuth-Secret").FirstOrDefault();
+                    try
+                    {
+                        string accessToken = res.Headers.GetValues("X-Twitter-New-Account-OAuth-Access-Token").FirstOrDefault();
+                        string accessSecret = res.Headers.GetValues("X-Twitter-New-Account-OAuth-Secret").FirstOrDefault();
 
-                    return res.Parse<User>()
-                        .Select(u => new Tuple<AccessToken, User>(/*new AccessToken(newConsumer, accessToken, accessSecret)*/null, u));
+                        return res.Parse<User>()
+                            .Select(u => new Tuple<AccessToken, User>(new AccessToken(newConsumer, accessToken, accessSecret), u));
+                    }
+                    catch (Exception ex)
+                    {
+                        res.Parse<ApiResponseBase>()
+                            .Do(r =>
+                            {
+                                throw new ApiException(r.ErrorMessages);
+                            });
+                        return null;
+                    }
                 });
         }
     }

@@ -2,7 +2,6 @@
 using Meton.Liegen.Utility;
 using System;
 using System.Net.Http;
-using System.Reactive.Linq;
 
 namespace Meton.Liegen.Method.Rest
 {
