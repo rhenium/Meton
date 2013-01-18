@@ -19,25 +19,19 @@ namespace Meton.Liegen.Utility
 
         public static DateTime ParseDateTime(this string value)
         {
-            DateTime result;
             string[] formats = {
                 "ddd MMM dd HH:mm:ss zzzz yyyy",
                 "ddd, d MMM yyyy HH:mm:ss zzzz"
             };
             foreach (var format in formats)
             {
+                DateTime result;
                 if (DateTime.TryParseExact(value, format, DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out result))
                 {
                     return result;
                 }
-                else
-                {
-                    continue;
-                }
             }
-            //throw new Exception("Can't parse string");
-            //System.Diagnostics.Debug.WriteLine("Can't parse string");
-            return new DateTime();
+            throw new ArgumentException("Can't parse string as DateTime.");
         }
     }
 }

@@ -32,7 +32,6 @@ namespace Meton.Liegen.OAuth
             }
             var authHeader = OAuthCommon.BuildAuthorizationHeader(signature);
 
-            System.Diagnostics.Debug.WriteLine(authHeader);
             request.Headers.Authorization = new AuthenticationHeaderValue("OAuth", authHeader);
             return base.SendAsync(request, cancellationToken);
         }

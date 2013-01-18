@@ -39,7 +39,7 @@ namespace Meton.Liegen
             {
                 v = Value.ToString();
             }
-                return Name.UrlEncode() + "=" + v.UrlEncode();
+            return Name.UrlEncode() + "=" + v.UrlEncode();
         }
     }
 
@@ -96,11 +96,10 @@ namespace Meton.Liegen
     {
         public static string ToUrlParameter(this IEnumerable<Parameter> parameters)
         {
-            var index = 0;
             return parameters
                 .Where(p => p.Value != null)
                 .Select(p => p.ToString())
-                .Aggregate(new StringBuilder(), (sb, o) => (index++ == 0) ? sb.Append(o) : sb.Append("&" + o))
+                .Aggregate(new StringBuilder(), (sb, o) => (sb.Length == 0) ? sb.Append(o) : sb.Append("&" + o))
                 .ToString();
         }
     }

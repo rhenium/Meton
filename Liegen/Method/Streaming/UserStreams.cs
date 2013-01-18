@@ -103,7 +103,7 @@ namespace Meton.Liegen.Method.Streaming
                         case StreamingEventKind.ListUserUnsubscribed:
                             return s.DeserializeJson<StreamingEventList>().Fix().ToStreamingElement();
                         default:
-                            throw new InvalidOperationException(); // EventKind が設定されていないことはないはず
+                            throw new InvalidOperationException("Unknown StreamingEventKind: " + desz.EventKind.ToString()); // EventKind が設定されていないことはないはず
                     }
                 })
                 .Publish();

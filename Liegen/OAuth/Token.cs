@@ -7,16 +7,25 @@ namespace Meton.Liegen.OAuth
     /// </summary>
     public abstract class Token
     {
-        public Consumer Consumer { get; private set; }
-        public string Key { get; private set; }
-        public string Secret { get; private set; }
+        public Consumer Consumer { get; protected set; }
+        public string Key { get; protected set; }
+        public string Secret { get; protected set; }
 
         protected Token(Consumer consumer, string key, string secret)
         {
-            if (consumer == null || key == null || secret == null)
+            if (consumer == null)
             {
-                throw new InvalidOperationException("key/secret: null");
+                throw new ArgumentNullException("consumer");
             }
+            if (key == null)
+            {
+                throw new ArgumentNullException("key");
+            }
+            if (secret == null)
+            {
+                throw new ArgumentNullException("secret");
+            }
+
             this.Consumer = consumer;
             this.Key = key;
             this.Secret = secret;

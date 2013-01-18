@@ -10,9 +10,13 @@ namespace Meton.Liegen
 
         public UploadFile(string fileName, byte[] data)
         {
-            if (fileName == null || data == null)
+            if (fileName == null)
             {
-                throw new InvalidOperationException("fileName/data: null");
+                throw new ArgumentNullException("fileName");
+            }
+            if (data == null)
+            {
+                throw new ArgumentNullException("data");
             }
 
             this.FileName = fileName;
@@ -23,8 +27,9 @@ namespace Meton.Liegen
         {
             if (!File.Exists(filePath))
             {
-                throw new IOException("File not found.");
+                throw new FileNotFoundException("File not found.", filePath);
             }
+
             this.FileName = Path.GetFileName(filePath);
             this.Data = File.ReadAllBytes(filePath);
         }

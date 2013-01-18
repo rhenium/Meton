@@ -19,7 +19,7 @@ namespace Meton.Liegen.OAuth
             var parameters = new ParameterCollection
             {
                 { "oauth_callback", oauthCallback },
-                { "x_auth_access_type", xauthAccessType.HasValue ? xauthAccessType.Value.ToStringExt() : null }
+                { "x_auth_access_type", xauthAccessType }
             };
 
             return OAuthCommon.GetTokenResponse(
@@ -69,8 +69,7 @@ namespace Meton.Liegen.OAuth
                 parameters,
                 (key, secret) => new AccessToken(newConsumer, key, secret),
                 this,
-                null,
-                "http://api.twitter.com/");
+                realm: "http://api.twitter.com/");
         }
     }
 }
