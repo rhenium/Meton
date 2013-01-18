@@ -5,21 +5,21 @@ namespace Meton.Liegen.DataModels
     public class StatusActivitySummary : ApiResponseBase
     {
         [JsonProperty("favoriters_count")]
-        public string FavoritersCountString { get; set; }
+        protected string FavoritersCountString { get; set; }
         [JsonProperty("retweeters_count")]
-        public string RetweetersCountString { get; set; }
+        protected string RetweetersCountString { get; set; }
         [JsonProperty("repliers_count")]
-        public string RepliersCountString { get; set; }
+        protected string RepliersCountString { get; set; }
         [JsonProperty("favoriters")]
-        public long[] Favoriters { get; set; }
+        public long[] Favoriters { get; protected set; }
         [JsonProperty("retweeters")]
-        public long[] Retweeters { get; set; }
+        public long[] Retweeters { get; protected set; }
         [JsonProperty("repliers")]
-        public long[] Repliers { get; set; }
+        public long[] Repliers { get; protected set; }
 
-        public int FavoritersCount { get; set; }
-        public int RetweetersCount { get; set; }
-        public int RepliersCount { get; set; }
+        public int FavoritersCount { get; protected set; }
+        public int RetweetersCount { get; protected set; }
+        public int RepliersCount { get; protected set; }
 
         public StatusActivitySummary Fix()
         {

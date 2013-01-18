@@ -1,4 +1,5 @@
 ﻿using Meton.Liegen.DataModels;
+using Meton.Liegen.OAuth;
 using Meton.Liegen.Utility;
 using System;
 using System.Net.Http;
@@ -9,14 +10,14 @@ namespace Meton.Liegen.Method.Rest
     {
         #region FollowersIds
         public static IObservable<IdsResponse> FollowersIds(
-            this AccountInfo info,
+            this AccessToken info,
             int cursor = -1)
         {
             return Friendships.FollowersIdsApi(info, cursor: cursor);
         }
 
         public static IObservable<IdsResponse> FollowersIds(
-            this AccountInfo info,
+            this AccessToken info,
             long userId,
             int cursor = -1)
         {
@@ -24,7 +25,7 @@ namespace Meton.Liegen.Method.Rest
         }
 
         public static IObservable<IdsResponse> FollowersIds(
-            this AccountInfo info,
+            this AccessToken info,
             string screenName,
             int cursor = -1)
         {
@@ -32,7 +33,7 @@ namespace Meton.Liegen.Method.Rest
         }
 
         private static IObservable<IdsResponse> FollowersIdsApi(
-            AccountInfo info,
+            AccessToken info,
             long? userId = null,
             string screenName = null,
             int cursor = -1)
@@ -49,21 +50,20 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.FollowersIds)
                 .SetParameters(param)
                 .GetResponse()
-                .ReadApiLimits(info, Endpoints.FollowersIds)
                 .Parse<IdsResponse>();
         }
         #endregion
 
         #region FriendsIds
         public static IObservable<IdsResponse> FriendsIds(
-            this AccountInfo info,
+            this AccessToken info,
             int cursor = -1)
         {
             return Friendships.FriendsIdsApi(info, cursor: cursor);
         }
 
         public static IObservable<IdsResponse> FriendsIds(
-            this AccountInfo info,
+            this AccessToken info,
             long userId,
             int cursor = -1)
         {
@@ -71,7 +71,7 @@ namespace Meton.Liegen.Method.Rest
         }
 
         public static IObservable<IdsResponse> FriendsIds(
-            this AccountInfo info,
+            this AccessToken info,
             string screenName,
             int cursor = -1)
         {
@@ -79,7 +79,7 @@ namespace Meton.Liegen.Method.Rest
         }
 
         private static IObservable<IdsResponse> FriendsIdsApi(
-            AccountInfo info,
+            AccessToken info,
             long? userId = null,
             string screenName = null,
             int cursor = -1)
@@ -96,7 +96,6 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.FriendsIds)
                 .SetParameters(param)
                 .GetResponse()
-                .ReadApiLimits(info, Endpoints.FriendsIds)
                 .Parse<IdsResponse>();
         }
         #endregion

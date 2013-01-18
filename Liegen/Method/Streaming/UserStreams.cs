@@ -1,6 +1,7 @@
 ﻿using Meton.Liegen.DataModels;
 using Meton.Liegen.DataModels.Streaming;
 using Meton.Liegen.Net;
+using Meton.Liegen.OAuth;
 using Meton.Liegen.Utility;
 using System;
 using System.IO;
@@ -15,7 +16,7 @@ namespace Meton.Liegen.Method.Streaming
     public static class UserStreams
     {
         public static IConnectableObservable<StreamingElement> UserStream(
-            this AccountInfo info,
+            this AccessToken info,
             string delimited = null,
             bool? stallWarnings = null,
             string with = null,

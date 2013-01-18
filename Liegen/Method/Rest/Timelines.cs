@@ -1,5 +1,6 @@
 ﻿using Meton.Liegen.DataModels;
 using Meton.Liegen.Net;
+using Meton.Liegen.OAuth;
 using Meton.Liegen.Utility;
 using System;
 using System.Net.Http;
@@ -10,7 +11,7 @@ namespace Meton.Liegen.Method.Rest
     public static class Timelines
     {
         public static IObservable<Status> HomeTimeline(
-            this AccountInfo info,
+            this AccessToken info,
             int? count = null,
             long? sinceId = null,
             long? maxId = null,
@@ -35,7 +36,6 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.StatusesHomeTimeline)
                 .SetParameters(param)
                 .GetResponse()
-                .ReadApiLimits(info, Endpoints.StatusesHomeTimeline)
                 .ParseArray<Status>()
                 .Select(status => status.Fix());
         }

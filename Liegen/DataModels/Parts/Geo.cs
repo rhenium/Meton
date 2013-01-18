@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Meton.Liegen.DataModels
+namespace Meton.Liegen.DataModels.Parts
 {
     public class Geo
     {

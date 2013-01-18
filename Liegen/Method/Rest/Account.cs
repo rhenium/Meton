@@ -11,7 +11,7 @@ namespace Meton.Liegen.Method.Rest
     public static class Account
     {
         public static IObservable<Tuple<AccessToken, User>> AccountGenerate(
-            this AccountInfo info,
+            this AccessToken info,
             Consumer newConsumer,
             string screenName,
             string email,
@@ -35,25 +35,13 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.AccountGenerate)
                 .SetParameters(param)
                 .GetResponse()
-                .SelectMany(res =>
+                .Parse<User>()
+                .Select(res =>
                 {
-                    try
-                    {
-                        string accessToken = res.Headers.GetValues("X-Twitter-New-Account-OAuth-Access-Token").FirstOrDefault();
-                        string accessSecret = res.Headers.GetValues("X-Twitter-New-Account-OAuth-Secret").FirstOrDefault();
+                    string accessToken = res.ResponseHeaders["X-Twitter-New-Account-OAuth-Access-Token"].First();
+                    string accessSecret = res.ResponseHeaders["X-Twitter-New-Account-OAuth-Secret"].First();
 
-                        return res.Parse<User>()
-                            .Select(u => new Tuple<AccessToken, User>(new AccessToken(newConsumer, accessToken, accessSecret), u));
-                    }
-                    catch (Exception ex)
-                    {
-                        res.Parse<ApiResponseBase>()
-                            .Do(r =>
-                            {
-                                throw new ApiException(r.ErrorMessages);
-                            });
-                        return null;
-                    }
+                    return new Tuple<AccessToken, User>(new AccessToken(newConsumer, accessToken, accessSecret), res);
                 });
         }
     }

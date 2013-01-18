@@ -102,8 +102,7 @@
     <Compile Include="Method\Rest\RelatedResults.cs" />
     <Compile Include="Method\Rest\Urls.cs" />
     <Compile Include="OAuth\Consumer.cs" />
-    <Compile Include="DataModels\ErrorMessage.cs" />
-    <Compile Include="DataModels\UrlCount.cs" />
+    <Compile Include="DataModels\Parts\ErrorMessage.cs" />
     <Compile Include="Net\NetworkSettings.cs" />
     <Compile Include="OAuth\OAuthClient.cs" />
     <Compile Include="OAuth\OAuthCommon.cs" />
@@ -112,33 +111,31 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="OAuth\RequestToken.cs" />
     <Compile Include="OAuth\Token.cs" />
-    <Compile Include="AccountInfo.cs" />
-    <Compile Include="DataModels\Annotations.cs" />
-    <Compile Include="DataModels\Attributes.cs" />
-    <Compile Include="DataModels\BoundingBox.cs" />
-    <Compile Include="DataModels\Contributors.cs" />
-    <Compile Include="DataModels\Coordinates.cs" />
+    <Compile Include="DataModels\Parts\Annotations.cs" />
+    <Compile Include="DataModels\Parts\Attributes.cs" />
+    <Compile Include="DataModels\Parts\BoundingBox.cs" />
+    <Compile Include="DataModels\Parts\Contributors.cs" />
+    <Compile Include="DataModels\Parts\Coordinates.cs" />
     <Compile Include="DataModels\DirectMessage.cs" />
-    <Compile Include="DataModels\Entities.cs" />
-    <Compile Include="DataModels\Geo.cs" />
-    <Compile Include="DataModels\Hashtags.cs" />
+    <Compile Include="DataModels\Entity\Entities.cs" />
+    <Compile Include="DataModels\Parts\Geo.cs" />
+    <Compile Include="DataModels\Entity\Hashtags.cs" />
     <Compile Include="DataModels\List.cs" />
-    <Compile Include="DataModels\Media.cs" />
-    <Compile Include="DataModels\Place.cs" />
-    <Compile Include="DataModels\Size.cs" />
-    <Compile Include="DataModels\Sizes.cs" />
+    <Compile Include="DataModels\Entity\Media.cs" />
+    <Compile Include="DataModels\Parts\Place.cs" />
+    <Compile Include="DataModels\Entity\Size.cs" />
+    <Compile Include="DataModels\Entity\Sizes.cs" />
     <Compile Include="DataModels\Status.cs" />
     <Compile Include="DataModels\Streaming\StreamingDelete.cs" />
     <Compile Include="DataModels\Streaming\StreamingEvent.cs" />
     <Compile Include="DataModels\Url.cs" />
     <Compile Include="DataModels\User.cs" />
-    <Compile Include="DataModels\UserMentions.cs" />
+    <Compile Include="DataModels\Entity\UserMentions.cs" />
     <Compile Include="DataModels\Streaming\StreamingElement.cs" />
     <Compile Include="DataModels\Streaming\StreamingEventList.cs" />
     <Compile Include="DataModels\Streaming\StreamingFriends.cs" />
     <Compile Include="DataModels\Streaming\StreamingId.cs" />
     <Compile Include="DataModels\Streaming\StreamingEventStatus.cs" />
-    <Compile Include="ApiRateLimits.cs" />
     <Compile Include="Method\Endpoints.cs" />
     <Compile Include="Method\Rest\Account.cs" />
     <Compile Include="Method\Rest\Timelines.cs" />
@@ -150,8 +147,9 @@
     <Compile Include="Utility\AsyncExtensions.cs" />
     <Compile Include="Utility\DateTimeExtensions.cs" />
     <Compile Include="Utility\Extensions.cs" />
-    <Compile Include="Utility\JsonUtility.cs" />
+    <Compile Include="Utility\ApiResponseParser.cs" />
     <Compile Include="Net\HttpUtility.cs" />
+    <Compile Include="Utility\Snowflake.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

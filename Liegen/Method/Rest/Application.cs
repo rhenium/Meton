@@ -1,4 +1,5 @@
 ﻿using Meton.Liegen.Net;
+using Meton.Liegen.OAuth;
 using Meton.Liegen.Utility;
 using System;
 using System.Net.Http;
@@ -10,7 +11,7 @@ namespace Meton.Liegen.Method.Rest
     public static class Application
     {
         public static IObservable<string> RateLimitStatus(
-            this AccountInfo info,
+            this AccessToken info,
             string resources = null)
         {
             var param = new ParameterCollection()

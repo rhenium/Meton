@@ -7,13 +7,14 @@ using System.Linq;
 
 namespace Meton.Liegen
 {
-    public class ApiException : Exception
+    public class ApiException<T> : Exception
+        where T : ApiResponseBase
     {
-        public ErrorMessage[] Errors { get; protected set; }
+        public T Response { get; private set; }
 
-        public ApiException(ErrorMessage[] errors)
+        public ApiException(T ApiResponse)
         {
-            this.Errors = errors;
+            this.Response = ApiResponse;
         }
     }
 }

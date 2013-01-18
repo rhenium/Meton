@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Meton.Liegen.DataModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -7,23 +8,10 @@ using System.Reactive.Threading.Tasks;
 
 namespace Meton.Liegen.Utility
 {
-    public static class JsonUtility
+    public static class ApiResponseParser
     {
-        public static IObservable<T> Parse<T>(this HttpResponseMessage res)
-        {
-            return res
-                .Content.ReadAsStringAsync().ToObservable()
-                .DeserializeJson<T>();
-        }
-
-        public static IObservable<T> ParseArray<T>(this HttpResponseMessage res)
-        {
-            return res
-                .Parse<List<T>>()
-                .SelectMany(m => m);
-        }
-
         public static IObservable<T> Parse<T>(this IObservable<HttpResponseMessage> res)
+            where T : ApiResponseBase
         {
             return res
                 .SelectMany(p => p.Content.ReadAsStringAsync().ToObservable())
@@ -31,9 +19,11 @@ namespace Meton.Liegen.Utility
         }
 
         public static IObservable<T> ParseArray<T>(this IObservable<HttpResponseMessage> res)
+            where T : ApiResponseBase
         {
             return res
-                .Parse<List<T>>()
+                .SelectMany(p => p.Content.ReadAsStringAsync().ToObservable())
+                .DeserializeJson<List<T>>()
                 .SelectMany(m => m);
         }
 
@@ -44,11 +34,9 @@ namespace Meton.Liegen.Utility
 
         public static T DeserializeJson<T>(this string json)
         {
-            /*return new StringReader(json)
-                .Using(sr => new JsonTextReader(sr)
-                    .Using(js => new JsonSerializer()
-                        .Deserialize<T>(js)));*/
+#if DEBUG
             System.Diagnostics.Debug.WriteLine(json);
+#endif
             return JsonConvert.DeserializeObject<T>(json);
         }
     }

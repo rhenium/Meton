@@ -1,5 +1,6 @@
 ﻿using Meton.Liegen.DataModels;
 using Meton.Liegen.Net;
+using Meton.Liegen.OAuth;
 using Meton.Liegen.Utility;
 using System;
 using System.Net.Http;
@@ -10,7 +11,7 @@ namespace Meton.Liegen.Method.Rest
     public static class Tweets
     {
         public static IObservable<Status> Update(
-            this AccountInfo info,
+            this AccessToken info,
             string status,
             long? inReplyToStatusId = null,
             double? latitude = null,
@@ -40,7 +41,7 @@ namespace Meton.Liegen.Method.Rest
         }
 
         public static IObservable<Status> UpdateWithMedia(
-            this AccountInfo info,
+            this AccessToken info,
             string status,
             UploadFile[] media,
             bool? possiblySensitive = null,

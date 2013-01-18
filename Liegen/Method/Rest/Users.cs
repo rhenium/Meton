@@ -1,4 +1,5 @@
 ﻿using Meton.Liegen.DataModels;
+using Meton.Liegen.OAuth;
 using Meton.Liegen.Utility;
 using System;
 using System.Net.Http;
@@ -10,21 +11,21 @@ namespace Meton.Liegen.Method.Rest
     {
         #region UsersShow
         public static IObservable<User> UsersShow(
-            this AccountInfo info,
+            this AccessToken info,
             long userId)
         {
             return Users.UsersShowApi(info, userId: userId);
         }
 
         public static IObservable<User> UsersShow(
-            this AccountInfo info,
+            this AccessToken info,
             string screenName)
         {
             return Users.UsersShowApi(info, screenName: screenName);
         }
 
         private static IObservable<User> UsersShowApi(
-            AccountInfo info,
+            AccessToken info,
             long? userId = null,
             string screenName = null)
         {
@@ -40,7 +41,6 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.UsersShow)
                 .SetParameters(param)
                 .GetResponse()
-                .ReadApiLimits(info, Endpoints.UsersShow)
                 .Parse<User>()
                 .Select(user => user.Fix());
         }
@@ -48,21 +48,21 @@ namespace Meton.Liegen.Method.Rest
 
         #region UsersLookup
         public static IObservable<User> UsersLookup(
-            this AccountInfo info,
+            this AccessToken info,
             params long[] userId)
         {
             return Users.UsersLookupApi(info, userId: userId);
         }
 
         public static IObservable<User> UsersLookup(
-            this AccountInfo info,
+            this AccessToken info,
             string screenName)
         {
             return Users.UsersLookupApi(info, screenName: screenName);
         }
 
         private static IObservable<User> UsersLookupApi(
-            AccountInfo info,
+            AccessToken info,
             long[] userId = null,
             string screenName = null)
         {
@@ -85,7 +85,6 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.UsersLookup)
                 .SetParameters(param)
                 .GetResponse()
-                .ReadApiLimits(info, Endpoints.UsersLookup)
                 .ParseArray<User>()
                 .Select(user => user.Fix());
         }
@@ -93,21 +92,21 @@ namespace Meton.Liegen.Method.Rest
 
         #region BlocksCreate
         public static IObservable<User> BlocksCreate(
-            this AccountInfo info,
+            this AccessToken info,
             long userId)
         {
             return Users.BlocksCreateApi(info, userId: userId);
         }
 
         public static IObservable<User> BlocksCreate(
-            this AccountInfo info,
+            this AccessToken info,
             string screenName)
         {
             return Users.BlocksCreateApi(info, screenName: screenName);
         }
 
         public static IObservable<User> BlocksCreateApi(
-            AccountInfo info,
+            AccessToken info,
             long? userId = null,
             string screenName = null)
         {
@@ -129,21 +128,21 @@ namespace Meton.Liegen.Method.Rest
 
         #region BlocksDestroy
         public static IObservable<User> BlocksDestroy(
-            this AccountInfo info,
+            this AccessToken info,
             long userId)
         {
             return Users.BlocksDestroyApi(info, userId: userId);
         }
 
         public static IObservable<User> BlocksDestroy(
-            this AccountInfo info,
+            this AccessToken info,
             string screenName)
         {
             return Users.BlocksDestroyApi(info, screenName: screenName);
         }
 
         public static IObservable<User> BlocksDestroyApi(
-            AccountInfo info,
+            AccessToken info,
             long? userId = null,
             string screenName = null)
         {

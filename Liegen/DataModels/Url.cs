@@ -12,5 +12,7 @@ namespace Meton.Liegen.DataModels
         public int[] Indices { get; set; }
         [JsonProperty("url")]
         public string Uri { get; set; }
+        [JsonProperty("count")]
+        public int Count { get; protected set; }
     }
 }

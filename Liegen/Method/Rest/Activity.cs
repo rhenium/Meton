@@ -1,4 +1,5 @@
 ﻿using Meton.Liegen.DataModels;
+using Meton.Liegen.OAuth;
 using Meton.Liegen.Utility;
 using System;
 using System.Net.Http;
@@ -9,7 +10,7 @@ namespace Meton.Liegen.Method.Rest
     public static class Activity
     {
         public static IObservable<StatusActivitySummary> ActivityStatusSummary(
-            this AccountInfo info,
+            this AccessToken info,
             long id,
             bool? includeUserEntities = null)
         {
