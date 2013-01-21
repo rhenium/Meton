@@ -89,6 +89,7 @@ namespace Meton.Liegen.Method.Streaming
                         case StreamingEventKind.Block:
                         case StreamingEventKind.Unblock:
                         case StreamingEventKind.Follow:
+                        case StreamingEventKind.Unfollow:
                         case StreamingEventKind.UserUpdate:
                             return s.DeserializeJson<StreamingEvent>().Fix().ToStreamingElement();
                         case StreamingEventKind.Favorite:

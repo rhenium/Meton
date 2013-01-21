@@ -37,6 +37,9 @@ namespace Meton.Liegen.DataModels.Streaming
                 case "follow":
                     this.EventKind = StreamingEventKind.Follow;
                     break;
+                case "unfollow":
+                    this.EventKind = StreamingEventKind.Unfollow;
+                    break;
                 case "list_created":
                     this.EventKind = StreamingEventKind.ListCreated;
                     break;

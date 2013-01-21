@@ -7,6 +7,7 @@
         Favorite,
         Unfavorite,
         Follow,
+        Unfollow,
         ListCreated,
         ListDestroyed,
         ListUpdated,
