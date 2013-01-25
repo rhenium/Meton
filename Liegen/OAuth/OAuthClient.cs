@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 
@@ -45,7 +44,14 @@ namespace Meton.Liegen.OAuth
 
             if (_Method == HttpMethod.Get)
             {
-                requestMessage.RequestUri = new Uri(_Endpoint + "?" + _ParameterCollection.ToUrlParameter());
+                var requestUri = _Endpoint;
+                var uriParameter = _ParameterCollection.ToUrlParameter();
+                if (uriParameter.Length > 0)
+                {
+                    requestUri += "?" + uriParameter;
+                }
+
+                requestMessage.RequestUri = new Uri(requestUri);
                 addParam = _ParameterCollection;
             }
             else if (_Method == HttpMethod.Post)
@@ -80,12 +86,10 @@ namespace Meton.Liegen.OAuth
             handler.Proxy = NetworkSettings.Proxy;
             var client = new HttpClient(new OAuthMessageHandler(_AccessToken.Consumer, _AccessToken, null, addParam, handler));
             client.Timeout = NetworkSettings.Timeout;
-            return client.SendAsync(requestMessage).ToObservable()
-                .Do(_ =>
-                {
-                    Debug.WriteLine(_.RequestMessage.ToString());
-                    Debug.WriteLine(_.RequestMessage.Content);
-                });
+
+            return client
+                .SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead)
+                .ToObservable();
         }
     }
 }

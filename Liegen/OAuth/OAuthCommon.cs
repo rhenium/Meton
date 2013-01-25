@@ -42,8 +42,6 @@ namespace Meton.Liegen.OAuth
                 "&" + normalizedUrl.UrlEncode() +
                 "&" + parameters.Concat(addParam).OrderBy(p => p.Name).ThenBy(p => p.Value).ToUrlParameter().UrlEncode();
 
-            Debug.WriteLine(signatureBase);
-
             var hmacKeyBase = consumer.ConsumerSecret.UrlEncode() + "&" +
                 (token == null ? "" : token.Secret.UrlEncode());
 

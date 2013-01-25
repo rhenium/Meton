@@ -69,7 +69,10 @@ namespace Meton.Liegen.DataModels.Streaming
                     break;
             }
 
-            this.CreatedAt = this.StringCreatedAt.ParseDateTime();
+            if (this.StringCreatedAt != null)
+            {
+                this.CreatedAt = this.StringCreatedAt.ParseDateTime();
+            }
 
             return this;
         }

@@ -4,9 +4,11 @@ using Meton.Liegen.Net;
 using Meton.Liegen.OAuth;
 using Meton.Liegen.Utility;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reactive.Threading.Tasks;
@@ -15,7 +17,7 @@ namespace Meton.Liegen.Method.Streaming
 {
     public static class UserStreams
     {
-        public static IConnectableObservable<StreamingElement> UserStream(
+        public static IObservable<StreamingElement> UserStream(
             this AccessToken info,
             string delimited = null,
             bool? stallWarnings = null,
@@ -42,11 +44,10 @@ namespace Meton.Liegen.Method.Streaming
                 .ParseStreamingResponse();
         }
 
-        private static IConnectableObservable<StreamingElement> ParseStreamingResponse(this IObservable<HttpResponseMessage> res)
+        private static IObservable<StreamingElement> ParseStreamingResponse(this IObservable<HttpResponseMessage> res)
         {
             return res
-                .SelectMany(p => p.Content.ReadAsStreamAsync().ToObservable())
-                .Select(p => new StreamReader(p))
+                .Select(p => new StreamReader(p.Content.ReadAsStreamAsync().Result))
                 .TakeWhile(sr => !sr.EndOfStream)
                 .Select(sr => sr.ReadLine())
                 .Where(s => !string.IsNullOrEmpty(s))
@@ -107,7 +108,7 @@ namespace Meton.Liegen.Method.Streaming
                             throw new InvalidOperationException("Unknown StreamingEventKind: " + desz.EventKind.ToString()); // EventKind が設定されていないことはないはず
                     }
                 })
-                .Publish();
+                .Repeat();
         }
     }
 }

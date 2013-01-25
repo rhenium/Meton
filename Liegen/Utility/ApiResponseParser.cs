@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
+using System.Threading.Tasks;
 
 namespace Meton.Liegen.Utility
 {
@@ -14,7 +15,7 @@ namespace Meton.Liegen.Utility
             where T : ApiResponseBase
         {
             return res
-                .SelectMany(p => p.Content.ReadAsStringAsync().ToObservable())
+                .SelectMany(p => p.Content.ReadAsStringAsync())
                 .DeserializeJson<T>();
         }
 
@@ -22,7 +23,7 @@ namespace Meton.Liegen.Utility
             where T : ApiResponseBase
         {
             return res
-                .SelectMany(p => p.Content.ReadAsStringAsync().ToObservable())
+                .SelectMany(p => p.Content.ReadAsStringAsync())
                 .DeserializeJson<List<T>>()
                 .SelectMany(m => m);
         }
@@ -34,9 +35,6 @@ namespace Meton.Liegen.Utility
 
         public static T DeserializeJson<T>(this string json)
         {
-#if DEBUG
-            System.Diagnostics.Debug.WriteLine(json);
-#endif
             return JsonConvert.DeserializeObject<T>(json);
         }
     }

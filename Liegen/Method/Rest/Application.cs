@@ -24,7 +24,7 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.ApplicationRateLimitStatus)
                 .SetParameters(param)
                 .GetResponse()
-                .SelectMany(p => p.Content.ReadAsStringAsync().ToObservable());
+                .SelectMany(p => p.Content.ReadAsStringAsync());
         }
     }
 }

@@ -144,7 +144,6 @@
     <Compile Include="DataModels\Streaming\StreamingEventKind.cs" />
     <Compile Include="Method\Streaming\UserStreams.cs" />
     <Compile Include="UploadFile.cs" />
-    <Compile Include="Utility\AsyncExtensions.cs" />
     <Compile Include="Utility\DateTimeExtensions.cs" />
     <Compile Include="Utility\Extensions.cs" />
     <Compile Include="Utility\ApiResponseParser.cs" />
