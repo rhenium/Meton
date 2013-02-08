@@ -5,32 +5,32 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
-using System.Threading.Tasks;
 
 namespace Meton.Liegen.Utility
 {
     public static class ApiResponseParser
     {
-        public static IObservable<T> Parse<T>(this IObservable<HttpResponseMessage> res)
-            where T : ApiResponseBase
+        public static IObservable<ApiResponse<T>> ReadResponse<T>(this IObservable<HttpResponseMessage> res)
+            where T : IRawApiResponse
         {
             return res
-                .SelectMany(p => p.Content.ReadAsStringAsync())
-                .DeserializeJson<T>();
+                .Select(message => new ApiResponse<T>(
+                    message.Content
+                        .ReadAsStringAsync()
+                        .ToObservable()
+                        .Select(s => s.DeserializeJson<T>()), message));
         }
 
-        public static IObservable<T> ParseArray<T>(this IObservable<HttpResponseMessage> res)
-            where T : ApiResponseBase
+        public static IObservable<ApiResponse<T>> ReadArrayResponse<T>(this IObservable<HttpResponseMessage> res)
+            where T : IRawApiResponse
         {
             return res
-                .SelectMany(p => p.Content.ReadAsStringAsync())
-                .DeserializeJson<List<T>>()
-                .SelectMany(m => m);
-        }
-
-        public static IObservable<T> DeserializeJson<T>(this IObservable<string> json)
-        {
-            return json.Select(s => s.DeserializeJson<T>());
+                .Select(message => new ApiResponse<T>(
+                    message.Content
+                        .ReadAsStringAsync()
+                        .ToObservable()
+                        .Select(s => s.DeserializeJson<List<T>>())
+                        .SelectMany(_ => _), message));
         }
 
         public static T DeserializeJson<T>(this string json)

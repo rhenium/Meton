@@ -2,7 +2,7 @@
 
 namespace Meton.Liegen.DataModels
 {
-    public class Url : ApiResponseBase
+    public class Url : IRawApiResponse
     {
         [JsonProperty("display_url")]
         public string DisplayUrl { get; set; }
@@ -14,5 +14,10 @@ namespace Meton.Liegen.DataModels
         public string Uri { get; set; }
         [JsonProperty("count")]
         public int Count { get; protected set; }
+
+        public Url Fix()
+        {
+            return this;
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace Meton.Liegen.Method.Rest
 {
     public static class Timelines
     {
-        public static IObservable<Status> HomeTimeline(
+        public static IObservable<ApiResponse<Status>> HomeTimeline(
             this AccessToken info,
             int? count = null,
             long? sinceId = null,
@@ -36,8 +36,7 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.StatusesHomeTimeline)
                 .SetParameters(param)
                 .GetResponse()
-                .ParseArray<Status>()
-                .Select(status => status.Fix());
+                .ReadArrayResponse<Status>();
         }
 
     }

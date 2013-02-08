@@ -4,7 +4,7 @@ using System;
 
 namespace Meton.Liegen.DataModels
 {
-    public class List
+    public class List : IRawApiResponse
     {
         [JsonProperty("member_count")]
         public int MemberCount { get; protected set; }

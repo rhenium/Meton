@@ -2,7 +2,7 @@
 
 namespace Meton.Liegen.DataModels
 {
-    public class StatusActivitySummary : ApiResponseBase
+    public class StatusActivitySummary : IRawApiResponse
     {
         [JsonProperty("favoriters_count")]
         protected string FavoritersCountString { get; set; }

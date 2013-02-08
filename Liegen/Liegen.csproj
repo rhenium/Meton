@@ -88,15 +88,17 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataModels\ApiResponseBase.cs" />
+    <Compile Include="DataModels\ApiResponse.cs" />
     <Compile Include="DataModels\Ids.cs" />
+    <Compile Include="DataModels\IRawApiResponse.cs" />
     <Compile Include="DataModels\StatusActivitySummary.cs" />
     <Compile Include="DataModels\StatusBase.cs" />
     <Compile Include="Method\Rest\Friendships.cs" />
+    <Compile Include="Method\Streaming\PublicStreams.cs" />
+    <Compile Include="Method\Streaming\StreamingCommon.cs" />
     <Compile Include="Net\ContentType.cs" />
     <Compile Include="OAuth\AccessToken.cs" />
     <Compile Include="OAuth\OAuthMessageHandler.cs" />
-    <Compile Include="ApiException.cs" />
     <Compile Include="Method\Rest\Activity.cs" />
     <Compile Include="Method\Rest\Application.cs" />
     <Compile Include="Method\Rest\RelatedResults.cs" />

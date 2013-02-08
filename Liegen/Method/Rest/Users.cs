@@ -10,21 +10,21 @@ namespace Meton.Liegen.Method.Rest
     public static class Users
     {
         #region UsersShow
-        public static IObservable<User> UsersShow(
+        public static IObservable<ApiResponse<User>> UsersShow(
             this AccessToken info,
             long userId)
         {
             return Users.UsersShowApi(info, userId: userId);
         }
 
-        public static IObservable<User> UsersShow(
+        public static IObservable<ApiResponse<User>> UsersShow(
             this AccessToken info,
             string screenName)
         {
             return Users.UsersShowApi(info, screenName: screenName);
         }
 
-        private static IObservable<User> UsersShowApi(
+        private static IObservable<ApiResponse<User>> UsersShowApi(
             AccessToken info,
             long? userId = null,
             string screenName = null)
@@ -41,27 +41,26 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.UsersShow)
                 .SetParameters(param)
                 .GetResponse()
-                .Parse<User>()
-                .Select(user => user.Fix());
+                .ReadResponse<User>();
         }
         #endregion
 
         #region UsersLookup
-        public static IObservable<User> UsersLookup(
+        public static IObservable<ApiResponse<User>> UsersLookup(
             this AccessToken info,
             params long[] userId)
         {
             return Users.UsersLookupApi(info, userId: userId);
         }
 
-        public static IObservable<User> UsersLookup(
+        public static IObservable<ApiResponse<User>> UsersLookup(
             this AccessToken info,
             string screenName)
         {
             return Users.UsersLookupApi(info, screenName: screenName);
         }
 
-        private static IObservable<User> UsersLookupApi(
+        private static IObservable<ApiResponse<User>> UsersLookupApi(
             AccessToken info,
             long[] userId = null,
             string screenName = null)
@@ -85,27 +84,26 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.UsersLookup)
                 .SetParameters(param)
                 .GetResponse()
-                .ParseArray<User>()
-                .Select(user => user.Fix());
+                .ReadArrayResponse<User>();
         }
         #endregion
 
         #region BlocksCreate
-        public static IObservable<User> BlocksCreate(
+        public static IObservable<ApiResponse<User>> BlocksCreate(
             this AccessToken info,
             long userId)
         {
             return Users.BlocksCreateApi(info, userId: userId);
         }
 
-        public static IObservable<User> BlocksCreate(
+        public static IObservable<ApiResponse<User>> BlocksCreate(
             this AccessToken info,
             string screenName)
         {
             return Users.BlocksCreateApi(info, screenName: screenName);
         }
 
-        public static IObservable<User> BlocksCreateApi(
+        public static IObservable<ApiResponse<User>> BlocksCreateApi(
             AccessToken info,
             long? userId = null,
             string screenName = null)
@@ -121,27 +119,26 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.BlocksCreate)
                 .SetParameters(param)
                 .GetResponse()
-                .Parse<User>()
-                .Select(_ => _.Fix());
+                .ReadResponse<User>();
         }
         #endregion
 
         #region BlocksDestroy
-        public static IObservable<User> BlocksDestroy(
+        public static IObservable<ApiResponse<User>> BlocksDestroy(
             this AccessToken info,
             long userId)
         {
             return Users.BlocksDestroyApi(info, userId: userId);
         }
 
-        public static IObservable<User> BlocksDestroy(
+        public static IObservable<ApiResponse<User>> BlocksDestroy(
             this AccessToken info,
             string screenName)
         {
             return Users.BlocksDestroyApi(info, screenName: screenName);
         }
 
-        public static IObservable<User> BlocksDestroyApi(
+        public static IObservable<ApiResponse<User>> BlocksDestroyApi(
             AccessToken info,
             long? userId = null,
             string screenName = null)
@@ -157,8 +154,7 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.BlocksDestroy)
                 .SetParameters(param)
                 .GetResponse()
-                .Parse<User>()
-                .Select(_ => _.Fix());
+                .ReadResponse<User>();
         }
         #endregion
     }

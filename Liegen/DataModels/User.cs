@@ -4,7 +4,7 @@ using System;
 
 namespace Meton.Liegen.DataModels
 {
-    public class User : ApiResponseBase
+    public class User : IRawApiResponse
     {
         [JsonProperty("contributors_enabled")]
         public bool? ContributorsEnabled { get; protected set; }

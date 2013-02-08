@@ -9,7 +9,7 @@ namespace Meton.Liegen.Method.Rest
 {
     public static class Activity
     {
-        public static IObservable<StatusActivitySummary> ActivityStatusSummary(
+        public static IObservable<ApiResponse<StatusActivitySummary>> ActivityStatusSummary(
             this AccessToken info,
             long id,
             bool? includeUserEntities = null)
@@ -24,8 +24,7 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.ActivityStatusSummary.Replace(":id", id.ToString()))
                 .SetParameters(param)
                 .GetResponse()
-                .Parse<StatusActivitySummary>()
-                .Select(_ => _.Fix());
+                .ReadResponse<StatusActivitySummary>();
         }
     }
 }

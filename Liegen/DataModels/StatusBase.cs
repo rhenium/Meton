@@ -9,7 +9,7 @@ using Meton.Liegen.DataModels.Entity;
 
 namespace Meton.Liegen.DataModels
 {
-    public class StatusBase : ApiResponseBase
+    public class StatusBase : IRawApiResponse
     {
         [JsonProperty("annotations")]
         public object Annotations { get; protected set; }

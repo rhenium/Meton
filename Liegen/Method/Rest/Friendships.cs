@@ -9,14 +9,14 @@ namespace Meton.Liegen.Method.Rest
     public static class Friendships
     {
         #region FollowersIds
-        public static IObservable<IdsResponse> FollowersIds(
+        public static IObservable<ApiResponse<IdsResponse>> FollowersIds(
             this AccessToken info,
             int cursor = -1)
         {
             return Friendships.FollowersIdsApi(info, cursor: cursor);
         }
 
-        public static IObservable<IdsResponse> FollowersIds(
+        public static IObservable<ApiResponse<IdsResponse>> FollowersIds(
             this AccessToken info,
             long userId,
             int cursor = -1)
@@ -24,7 +24,7 @@ namespace Meton.Liegen.Method.Rest
             return Friendships.FollowersIdsApi(info, userId: userId, cursor: cursor);
         }
 
-        public static IObservable<IdsResponse> FollowersIds(
+        public static IObservable<ApiResponse<IdsResponse>> FollowersIds(
             this AccessToken info,
             string screenName,
             int cursor = -1)
@@ -32,7 +32,7 @@ namespace Meton.Liegen.Method.Rest
             return Friendships.FollowersIdsApi(info, screenName: screenName, cursor: cursor);
         }
 
-        private static IObservable<IdsResponse> FollowersIdsApi(
+        private static IObservable<ApiResponse<IdsResponse>> FollowersIdsApi(
             AccessToken info,
             long? userId = null,
             string screenName = null,
@@ -50,19 +50,19 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.FollowersIds)
                 .SetParameters(param)
                 .GetResponse()
-                .Parse<IdsResponse>();
+                .ReadResponse<IdsResponse>();
         }
         #endregion
 
         #region FriendsIds
-        public static IObservable<IdsResponse> FriendsIds(
+        public static IObservable<ApiResponse<IdsResponse>> FriendsIds(
             this AccessToken info,
             int cursor = -1)
         {
             return Friendships.FriendsIdsApi(info, cursor: cursor);
         }
 
-        public static IObservable<IdsResponse> FriendsIds(
+        public static IObservable<ApiResponse<IdsResponse>> FriendsIds(
             this AccessToken info,
             long userId,
             int cursor = -1)
@@ -70,7 +70,7 @@ namespace Meton.Liegen.Method.Rest
             return Friendships.FriendsIdsApi(info, userId: userId, cursor: cursor);
         }
 
-        public static IObservable<IdsResponse> FriendsIds(
+        public static IObservable<ApiResponse<IdsResponse>> FriendsIds(
             this AccessToken info,
             string screenName,
             int cursor = -1)
@@ -78,7 +78,7 @@ namespace Meton.Liegen.Method.Rest
             return Friendships.FriendsIdsApi(info, screenName: screenName, cursor: cursor);
         }
 
-        private static IObservable<IdsResponse> FriendsIdsApi(
+        private static IObservable<ApiResponse<IdsResponse>> FriendsIdsApi(
             AccessToken info,
             long? userId = null,
             string screenName = null,
@@ -96,7 +96,7 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.FriendsIds)
                 .SetParameters(param)
                 .GetResponse()
-                .Parse<IdsResponse>();
+                .ReadResponse<IdsResponse>();
         }
         #endregion
     }

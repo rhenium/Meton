@@ -10,7 +10,7 @@ namespace Meton.Liegen.Method.Rest
 {
     public static class Tweets
     {
-        public static IObservable<Status> Update(
+        public static IObservable<ApiResponse<Status>> Update(
             this AccessToken info,
             string status,
             long? inReplyToStatusId = null,
@@ -36,11 +36,10 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.StatusesUpdate)
                 .SetParameters(param)
                 .GetResponse()
-                .Parse<Status>()
-                .Select(status_ => status_.Fix());
+                .ReadResponse<Status>();
         }
 
-        public static IObservable<Status> UpdateWithMedia(
+        public static IObservable<ApiResponse<Status>> UpdateWithMedia(
             this AccessToken info,
             string status,
             UploadFile[] media,
@@ -72,8 +71,7 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.StatusesUpdateWithMedia)
                 .SetParameters(param)
                 .GetResponse()
-                .Parse<Status>()
-                .Select(status_ => status_.Fix());
+                .ReadResponse<Status>();
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Meton.Liegen.DataModels
 {
-    public class IdsResponse : ApiResponseBase
+    public class IdsResponse : IRawApiResponse
     {
         [JsonProperty("ids")]
         public long[] Ids { get; protected set; }

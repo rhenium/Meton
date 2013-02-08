@@ -10,7 +10,7 @@ namespace Meton.Liegen.Method.Rest
 {
     public static class Urls
     {
-        public static IObservable<Url> UrlShorten(
+        public static IObservable<ApiResponse<Url>> UrlShorten(
             this AccessToken info,
             string url)
         {
@@ -24,10 +24,10 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.UrlsShorten)
                 .SetParameters(param)
                 .GetResponse()
-                .Parse<Url>();
+                .ReadResponse<Url>();
         }
 
-        public static IObservable<Url> UrlCount(
+        public static IObservable<ApiResponse<Url>> UrlCount(
             this AccessToken info,
             string url)
         {
@@ -41,7 +41,7 @@ namespace Meton.Liegen.Method.Rest
                 .SetEndpoint(Endpoints.UrlsCount)
                 .SetParameters(param)
                 .GetResponse()
-                .Parse<Url>();
+                .ReadResponse<Url>();
         }
     }
 }
