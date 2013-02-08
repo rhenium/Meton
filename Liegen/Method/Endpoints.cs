@@ -6,6 +6,7 @@
         public static string BaseUriOAuth = "https://twitter.com/oauth/";
         public static string BaseUriApiV11 = "https://api.twitter.com/1.1/";
         public static string BaseUriUserStreamsV11 = "https://userstream.twitter.com/1.1/";
+        public static string BaseUriStreamingApiV11 = "https://stream.twitter.com/1.1/";
         public static string BaseUriUrlsV1 = "http://urls.api.twitter.com/1/";
         public static string BaseUriApiV1 = "https://api.twitter.com/1/";
         public static string BaseUriApiI = "https://api.twitter.com/i/";
@@ -18,6 +19,7 @@
 
         // Streaming
         public static string UserStream = Endpoints.BaseUriUserStreamsV11 + "user.json";
+        public static string PublicStreamsSample = Endpoints.BaseUriStreamingApiV11 + "statuses/sample.json";
 
         // statuses/
         public static string StatusesHomeTimeline = Endpoints.BaseUriApiV11 + "statuses/home_timeline.json";
